@@ -72,6 +72,7 @@
         this.get('', function() {
             this.app.runRoute('get', '#todos');
         });
+
     }).run();
 
 })(ko, todoApp.datacontext);
