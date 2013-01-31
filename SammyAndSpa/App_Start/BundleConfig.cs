@@ -22,7 +22,8 @@ namespace SammyAndSpa
                         "~/Scripts/knockout-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/sammy").Include(
-                        "~/Scripts/sammy.js"));
+                        "~/Scripts/sammy.js",
+                        "~/Scripts/app/sammy.config.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
                 "~/Scripts/app/ajaxlogin.js"));
