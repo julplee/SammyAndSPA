@@ -7,6 +7,10 @@ Sammy(function () {
     this.get('#stats', function () {
         self.isStatsChoose(true);
     });
+    
+    this.get('Help', function () {
+        window.location = "/Help";
+    });
 
     this.get('', function () {
         this.app.runRoute('get', '#todos');

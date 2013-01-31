@@ -22,8 +22,7 @@ namespace SammyAndSpa
                         "~/Scripts/knockout-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/sammy").Include(
-                        "~/Scripts/sammy.js",
-                        "~/Scripts/app/sammy.config.js"));
+                        "~/Scripts/sammy.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
                 "~/Scripts/app/ajaxlogin.js"));
@@ -32,7 +31,8 @@ namespace SammyAndSpa
                 "~/Scripts/app/todo.bindings.js",
                 "~/Scripts/app/todo.datacontext.js",
                 "~/Scripts/app/todo.model.js",
-                "~/Scripts/app/todo.viewmodel.js"));
+                "~/Scripts/app/todo.viewmodel.js",
+                "~/Scripts/app/todo.sammy.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
