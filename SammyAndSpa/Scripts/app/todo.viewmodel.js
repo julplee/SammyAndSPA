@@ -39,15 +39,40 @@
         return todoLists().length;
     }, this);
 
-    self.isStatsChoose = ko.observable(true);
+    self.todoCount = ko.computed(function () {
+        var count = 0;
+
+        ko.utils.arrayForEach(self.todoLists(), function(TodoList) {
+            count += TodoList.Todos().length;
+        }, this);
+
+        return count;
+    });
+
+    self.isStatsChoose = ko.observable(false);
 
     self.goToStats = function() {
-        self.isStatsChoose(true);
+        location.hash = "stats";
     };
 
     self.goToTodos = function() {
-        self.isStatsChoose(false);
+        location.hash = "todos";
     };
+    
+    // Client-side routes    
+    Sammy(function () {
+        this.get('#todos', function () {
+            self.isStatsChoose(false);
+        });
+
+        this.get('#stats', function () {
+            self.isStatsChoose(true);
+        });
+
+        this.get('', function() {
+            this.app.runRoute('get', '#todos');
+        });
+    }).run();
 
 })(ko, todoApp.datacontext);
 
