@@ -10,34 +10,41 @@
 <div id="main-content">
 @if (@User.Identity.IsAuthenticated)
 {
-    <p class="error" data-bind="text: error"></p>
-    <button data-bind="click: addTodoList">Add Todo list</button>
+    <div data-bind="visible: !isStatsChoose()">
+        <p class="error" data-bind="text: error"></p>
+        <button data-bind="click: addTodoList">Add Todo list</button>
+        <button data-bind="click: goToStats">Go to stats</button>
+        <section id="lists" data-bind="foreach: todoLists, visible: todoLists().length > 0">
+            <article class="todoList">
+                <header>
+                    <form data-bind="validate: true">
+                        <input class="required" data-bind="value: Title, selected: IsEditingListTitle, blurOnEnter: true" />
+                    </form>
+                </header>
 
-    <section id="lists" data-bind="foreach: todoLists, visible: todoLists().length > 0">
-        <article class="todoList">
-            <header>
-                <form data-bind="validate: true">
-                    <input class="required" data-bind="value: Title, selected: IsEditingListTitle, blurOnEnter: true" />
+                <a href="#" class="deletelist" data-bind="click: deleteTodoList">X</a>
+
+                <ul data-bind="foreach: Todos">
+                    <li>
+                        <input type="checkbox" data-bind="checked: IsDone" />
+                        <input type="text" data-bind="value: Title, disable: IsDone, blurOnEnter: true" />
+                        <a href="#" data-bind="click: $parent.deleteTodo">X</a>
+                        <p class="error" data-bind="visible: ErrorMessage, text: ErrorMessage"></p>
+                    </li>
+                </ul>
+
+                <form data-bind="submit: addTodo">
+                    <input class="addTodo" type="text" data-bind="value: NewTodoTitle, placeholder: 'Type here to add', blurOnEnter: true, event: { blur: addTodo }" />
                 </form>
-            </header>
 
-            <a href="#" class="deletelist" data-bind="click: $parent.deleteTodoList">X</a>
-
-            <ul data-bind="foreach: Todos">
-                <li>
-                    <input type="checkbox" data-bind="checked: IsDone" />
-                    <input type="text" data-bind="value: Title, disable: IsDone, blurOnEnter: true" />
-                    <a href="#" data-bind="click: $parent.deleteTodo">X</a>
-                    <p class="error" data-bind="visible: ErrorMessage, text: ErrorMessage"></p>
-                </li>
-            </ul>
-
-            <form data-bind="submit: addTodo">
-                <input class="addTodo" type="text" data-bind="value: NewTodoTitle, placeholder: 'Type here to add', blurOnEnter: true, event: { blur: addTodo }" />
-            </form>
-
-            <p class="error" data-bind="visible: ErrorMessage, text: ErrorMessage"></p>
-        </article>
+                <p class="error" data-bind="visible: ErrorMessage, text: ErrorMessage"></p>
+            </article>
+        </section>
+    </div>
+    
+    <section data-bind="visible: isStatsChoose">
+        <button data-bind="click: goToTodos">Go to Todos</button> <br/>
+        Number of Todos : <span data-bind="text: todoListsCount"></span>
     </section>
 }
 else
